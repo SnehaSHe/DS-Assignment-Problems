@@ -1,1 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
 
+struct node
+{
+    int data;
+    struct node *link;
+};
+
+struct node*Append(struct node*ptr,int data);
+void DisplayLL(struct node*ptr);
+void CountOcc(struct node*ptr,int val);
+
+int main()
+{
+    int num,n;
+    struct node*head;
+    struct node*ptr;
+    
+    printf("Enter number of nodes");
+    scanf("%d",&n);
+    
+    //Creating first node
+    head=(struct node*)malloc(sizeof(struct node));
+    printf("Enter value to add to the list: ");
+    scanf("%d",&num);
+    head->data=num;
+    head->link=NULL;
+    
+    //Creating remaining nodes
+    ptr=head;
+    for (int i=0;i<n-1;i++)
+    {
+        printf("Enter value to add to the list: ");
+        scanf("%d",&num);
+        ptr=Append(ptr,num);
+    }
+    
+    ptr=head;
+    DisplayLL(ptr);
+    
+    int ele;
+    printf("Enter element");
+    scanf("%d",&ele);
+    
+    ptr=head;
+    CountOcc(ptr,ele);
+    
+}
+
+//Adding element to the list
+struct node* Append(struct node*ptr,int data)
+{
+    struct node *temp = malloc(sizeof(struct node));
+    temp->data=data;
+    temp->link=NULL;
+    
+    ptr->link =temp;
+    return temp;
+}
+
+//Displaying the list
+void DisplayLL(struct node*ptr)
+{
+    while (ptr!=NULL)
+    {
+        printf("%d\t",ptr->data);
+        ptr=ptr->link;
+    }
+}
+
+void CountOcc(struct node*ptr,int val)
+{
+    int count=0;
+    while(ptr!=NULL)
+    {
+        if(ptr->data==val)
+        count=count+1;
+        ptr=ptr->link;
+    }
+    printf("Number of occurrences:%d ",count);
+}
