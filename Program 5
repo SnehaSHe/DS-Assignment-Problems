@@ -1,1 +1,97 @@
+//Program 5
+//To check whether the given linked list is in ascending order
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct node
+{
+    int data;
+    struct node *link;
+};
+
+bool CheckifAscending(struct node *ptr);
+struct node*Append(struct node*ptr,int data);
+void DisplayLL(struct node*ptr);
+
+int main()
+{
+    int num,n;
+    bool AS;
+    struct node*head;
+    struct node*ptr;
+    
+    printf("Enter number of nodes: ");
+    scanf("%d",&n);
+    
+    //Creating first node
+    head=(struct node*)malloc(sizeof(struct node));
+    printf("Enter value to add to the list: ");
+    scanf("%d",&num);
+    head->data=num;
+    head->link=NULL;
+    
+    //Creating remaining nodes
+    ptr=head;
+    for (int i=0;i<n-1;i++)
+    {
+        printf("Enter value to add to the list: ");
+        scanf("%d",&num);
+        ptr=Append(ptr,num);
+    }
+    
+    //Displaying the linked list
+    ptr=head;
+    DisplayLL(ptr);
+    
+    //Checking ascending order
+    ptr=head;
+    AS=CheckifAscending(ptr);
+    if(AS==false)
+        printf("The list is not in ascending order");
+    else
+        printf("The list is in ascending order");
+    
+}
+
+
+//Function to add element to the list
+struct node* Append(struct node*ptr,int data)
+{
+    struct node *temp = malloc(sizeof(struct node));
+    temp->data=data;
+    temp->link=NULL;
+    
+    ptr->link =temp;
+    return temp;
+}
+
+//Function to display the list
+void DisplayLL(struct node*ptr)
+{
+    printf("Here is the linked list\n");
+    while (ptr!=NULL)
+    {
+        printf("%d\t",ptr->data);
+        ptr=ptr->link;
+    }
+    printf("\n");
+}
+
+//Function to check if the list is in ascending order
+bool CheckifAscending(struct node *ptr)
+{
+    struct node *ptr2;
+    ptr2=ptr->link;
+    
+    while (ptr2!=NULL)
+    {
+        if(ptr->data>ptr2->data)
+        return false;
+        
+        ptr=ptr->link;
+        ptr2=ptr2->link;
+    }
+    return true;
+}
