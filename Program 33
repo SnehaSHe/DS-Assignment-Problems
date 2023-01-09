@@ -1,5 +1,3 @@
-//Program 0
-//Basic to accept elements and display
 
 #include <stdio.h>
 #include <stdlib.h>
